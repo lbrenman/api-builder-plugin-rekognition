@@ -1,0 +1,35 @@
+flow-nodes:
+  rekognition:
+    name: Rekognition
+    icon: icon.png
+    description: Rekognition image analysis.
+    category: AI
+    methods:
+      detectLabels: # This same key is used in `actions.js`
+        name: Detect Labels
+        description: Detects objects in an image.
+        parameters:
+          Image:
+            name: Image
+            description: Base64 encoded image.
+            required: true
+            initialType: string
+            schema:
+              type: string
+        # "Next" (next) output
+        returns:
+          name: Next
+          description: The operation was successful.
+          context: $.detectlabelsoutput
+          schema:
+            type: object
+        # "Error" (error) output
+        throws:
+          name: Error
+          description: An unexpected error was encountered.
+          context: $.detectlabelserror
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
