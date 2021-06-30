@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const { MockRuntime } = require('@axway/api-builder-test-utils');
 const getPlugin = require('../src');
 const car = require('./car.js');
-// console.log(car);
+const text = require('./text.js');
 
 describe('flow-node rekognition', () => {
 	let plugin;
@@ -26,7 +26,8 @@ describe('flow-node rekognition', () => {
 			expect(flowNode.description).to.equal('Rekognition image analysis.');
 			expect(flowNode.icon).to.be.a('string');
 			expect(flowNode.getMethods()).to.deep.equal([
-				'detectLabels'
+				'detectLabels',
+				'detectText'
 			]);
 		});
 
@@ -59,4 +60,25 @@ describe('flow-node rekognition', () => {
 			expect(output).to.equal('next');
 		});
 	});
+
+	describe('#detectText', () => {
+		it('should error when missing required parameter', async () => {
+			// Invoke #hello with a non-number and check error.
+			const { value, output } = await flowNode.detectText({
+				Image: null
+			});
+
+			expect(value).to.be.instanceOf(Error)
+				.and.to.have.property('message', 'Missing required parameter: Image');
+			expect(output).to.equal('error');
+		});
+
+		it('should succeed with valid argument', async () => {
+			const { value, output } = await flowNode.detectText({ Image: text.text });
+
+			expect(value.TextModelVersion).to.equal('3.0');
+			expect(output).to.equal('next');
+		});
+	});
+
 });
