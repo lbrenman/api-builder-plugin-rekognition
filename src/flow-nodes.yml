@@ -23,6 +23,52 @@ flow-nodes:
           context: $.detectlabelsoutput
           schema:
             type: object
+            properties:
+              LabelModelVersion:
+                type: string
+                example: 2.0
+              Labels:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Confidence:
+                      type: number
+                      example: 57.1234
+                    Name:
+                      type: string
+                      example: car
+                    Parents:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          Name:
+                            type: string
+                            example: vehicle
+                    Instances:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          Confidence:
+                            type: number
+                            example: 57.1234
+                          BoundingBox:
+                            type: object
+                            properties:
+                              Height:
+                                type: number
+                                example: 0.4260041415691376
+                              Left:
+                                type: number
+                                example: 0.044332683086395264
+                              Top:
+                                type: number
+                                example: 0.37117668986320496
+                              Width:
+                                type: number
+                                example: 0.9095886945724487
         # "Error" (error) output
         throws:
           name: Error
