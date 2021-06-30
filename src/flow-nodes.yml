@@ -98,51 +98,59 @@ flow-nodes:
           schema:
             type: object
             properties:
-              LabelModelVersion:
+              TextModelVersion:
                 type: string
-                example: 2.0
-              Labels:
+                example: 3.0
+              TextDetections:
                 type: array
                 items:
                   type: object
                   properties:
+                    DetectedText:
+                      type: string
+                      example: CREATE
+                    Type:
+                      type: string
+                      enum:
+                      - LINE
+                      - WORD
+                    Id:
+                      type: number
+                      example: 0
                     Confidence:
                       type: number
-                      example: 57.1234
-                    Name:
-                      type: string
-                      example: car
-                    Parents:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          Name:
-                            type: string
-                            example: vehicle
-                    Instances:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          Confidence:
-                            type: number
-                            example: 57.1234
-                          BoundingBox:
+                      example: 100
+                    ParentId:
+                      type: number
+                      example: 0
+                    Geometry:
+                      type: object
+                      properties:
+                        BoundingBox:
+                          type: object
+                          properties:
+                            Height:
+                              type: number
+                              example: 0.4260041415691376
+                            Left:
+                              type: number
+                              example: 0.044332683086395264
+                            Top:
+                              type: number
+                              example: 0.37117668986320496
+                            Width:
+                              type: number
+                              example: 0.9095886945724487
+                          Polygon: array
+                          items:
                             type: object
                             properties:
-                              Height:
+                              X:
                                 type: number
-                                example: 0.4260041415691376
-                              Left:
+                                example: 0.2593750059604645
+                              Y:
                                 type: number
-                                example: 0.044332683086395264
-                              Top:
-                                type: number
-                                example: 0.37117668986320496
-                              Width:
-                                type: number
-                                example: 0.9095886945724487
+                                example: 0.3361110985279083
         # "Error" (error) output
         throws:
           name: Error
