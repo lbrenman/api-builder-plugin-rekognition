@@ -1,6 +1,8 @@
 const { expect } = require('chai');
 const { MockRuntime } = require('@axway/api-builder-test-utils');
 const getPlugin = require('../src');
+const car = require('./car.js');
+// console.log(car);
 
 describe('flow-node rekognition', () => {
 	let plugin;
@@ -20,11 +22,11 @@ describe('flow-node rekognition', () => {
 			expect(flowNode).to.be.a('object');
 
 			// Ensure the flow-node matches the spec
-			expect(flowNode.name).to.equal('Hello World');
-			expect(flowNode.description).to.equal('Example flow-node to say hello.');
+			expect(flowNode.name).to.equal('Rekognition');
+			expect(flowNode.description).to.equal('Rekognition image analysis.');
 			expect(flowNode.icon).to.be.a('string');
 			expect(flowNode.getMethods()).to.deep.equal([
-				'hello'
+				'detectLabels'
 			]);
 		});
 
@@ -38,22 +40,22 @@ describe('flow-node rekognition', () => {
 		});
 	});
 
-	describe('#hello', () => {
+	describe('#detectLabels', () => {
 		it('should error when missing required parameter', async () => {
 			// Invoke #hello with a non-number and check error.
-			const { value, output } = await flowNode.hello({
-				name: null
+			const { value, output } = await flowNode.detectLabels({
+				Image: null
 			});
 
 			expect(value).to.be.instanceOf(Error)
-				.and.to.have.property('message', 'Missing required parameter: name');
+				.and.to.have.property('message', 'Missing required parameter: Image');
 			expect(output).to.equal('error');
 		});
 
 		it('should succeed with valid argument', async () => {
-			const { value, output } = await flowNode.hello({ name: 'World' });
+			const { value, output } = await flowNode.detectLabels({ Image: car.car });
 
-			expect(value).to.equal('Hello World');
+			expect(value.Labels[0].Name).to.equal('Car');
 			expect(output).to.equal('next');
 		});
 	});
