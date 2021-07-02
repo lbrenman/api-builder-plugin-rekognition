@@ -38,9 +38,11 @@ bodyParser: {
 },
 ```
 
+> Note that 5mb is just an example. You can set it to the value that meets your needs based on the image size
+
 ## Use
 
-Find the plugin in the AI group in the Flow-Nodes panel. Drag onto the canvas and select the desired method and provide the input Text and wire up to the rest of your flow as shown below:
+Find the plugin in the AI group in the Flow-Nodes panel. Drag onto the canvas and select the desired method and provide the input string (Image as a Base64 encoded string) and wire up to the rest of your flow as shown below:
 
 ![](https://i.imgur.com/5hl3tGg.png)
 

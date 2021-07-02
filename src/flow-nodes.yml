@@ -609,3 +609,134 @@ flow-nodes:
             properties:
               message:
                 type: string
+      getCelebrityInfo: # This same key is used in `actions.js`
+        name: Detect Personal Protective Equipment
+        description: Detects Personal Protective Equipment (PPE) worn by people detected in an image (JPG or PNG).
+        parameters:
+          Image:
+            name: Image
+            description: Base64 encoded image.
+            required: true
+            initialType: string
+            schema:
+              type: string
+        # "Next" (next) output
+        returns:
+          name: Next
+          description: The operation was successful.
+          context: $.detectppeoutput
+          schema:
+            type: object
+            properties:
+              ProtectiveEquipmentModelVersion:
+                type: string
+                example: 3.0
+              Summary:
+                type: object
+                properties:
+                  PersonsIndeterminate:
+                    type: array
+                    items:
+                      type: number
+                      example: 0
+                  PersonsWithoutRequiredEquipment:
+                    type: array
+                    items:
+                      type: number
+                      example: 1
+                  PersonsWithRequiredEquipment:
+                    type: array
+                    items:
+                      type: number
+                      example: 2
+              Persons:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    BodyParts:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          Confidence:
+                            type: number
+                            example: 99.83000183105469
+                          Name:
+                            type: string
+                            enum:
+                            - FACE
+                            - HEAD
+                            - LEFT_HAND
+                            -
+
+                              RIGHT_HAND
+                          EquipmentDetections:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                Type:
+                                  type: string
+                                  enum:
+                                  - FACE_COVER
+                                  - HAND_COVER
+                                  - HEAD_COVER
+                                Confidence:
+                                  type: number
+                                  example: 99.83000183105469
+                                BoundingBox:
+                                  type: object
+                                  properties:
+                                    Height:
+                                      type: number
+                                      example: 0.4260041415691376
+                                    Left:
+                                      type: number
+                                      example: 0.044332683086395264
+                                    Top:
+                                      type: number
+                                      example: 0.37117668986320496
+                                    Width:
+                                      type: number
+                                      example: 0.9095886945724487
+                                CoversBodyPart:
+                                  type: object
+                                  properties:
+                                    Confidence:
+                                      type: number
+                                      example: 99.83000183105469
+                                    Value:
+                                      type: boolean
+                                      example: true
+                    BoundingBox:
+                      type: object
+                      properties:
+                        Height:
+                          type: number
+                          example: 0.4260041415691376
+                        Left:
+                          type: number
+                          example: 0.044332683086395264
+                        Top:
+                          type: number
+                          example: 0.37117668986320496
+                        Width:
+                          type: number
+                          example: 0.9095886945724487
+                    Confidence:
+                      type: number
+                      example: 99.83000183105469
+                    Id:
+                      type: number
+                      example: 0
+        # "Error" (error) output
+        throws:
+          name: Error
+          description: An unexpected error was encountered.
+          context: $.detectppeerror
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
