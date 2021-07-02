@@ -2,6 +2,14 @@
 
 [**Axway API Builder**](https://docs.axway.com/bundle/API_Builder_4x_allOS_en/page/api_builder.html) flow-node that implements [**AWS Rekognition**](https://docs.aws.amazon.com/rekognition/index.html) for image Analysis : *api-builder-plugin-rekognition*.
 
+Methods implemented:
+
+* detectFaces
+* detectLabels
+* detectModerationLabels
+* detectProtectiveEquipment
+* detectText
+
 ## About flow-nodes
 
 Flow-nodes are used within Axway API Builder's flow editor that is a low-code / no-code solution to designing and developing services
