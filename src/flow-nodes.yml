@@ -7,7 +7,7 @@ flow-nodes:
     methods:
       detectLabels: # This same key is used in `actions.js`
         name: Detect Labels
-        description: Detects objects in an image.
+        description: Detects objects in an image (JPG or PNG).
         parameters:
           Image:
             name: Image
@@ -81,7 +81,7 @@ flow-nodes:
                 type: string
       detectText: # This same key is used in `actions.js`
         name: Detect Text
-        description: Detects text in an image.
+        description: Detects text in an image (JPG or PNG).
         parameters:
           Image:
             name: Image
@@ -156,6 +156,454 @@ flow-nodes:
           name: Error
           description: An unexpected error was encountered.
           context: $.detecttexterror
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+      detectFaces: # This same key is used in `actions.js`
+        name: Detect Faces
+        description: Detects faces and facial details in an image (JPG or PNG).
+        parameters:
+          Image:
+            name: Image
+            description: Base64 encoded image.
+            required: true
+            initialType: string
+            schema:
+              type: string
+        # "Next" (next) output
+        returns:
+          name: Next
+          description: The operation was successful.
+          context: $.detectfacesoutput
+          schema:
+            type: object
+            properties:
+              FaceDetails:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    AgeRange:
+                      type: object
+                      properties:
+                        Low:
+                          type: number
+                          example: 23
+                        High:
+                          type: number
+                          example: 42
+                    Beard:
+                      type: object
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 56.16883087158203
+                        Value:
+                          type: boolean
+                          example: true
+                    BoundingBox:
+                      type: object
+                      properties:
+                        Height:
+                          type: number
+                          example: 0.4260041415691376
+                        Left:
+                          type: number
+                          example: 0.044332683086395264
+                        Top:
+                          type: number
+                          example: 0.37117668986320496
+                        Width:
+                          type: number
+                          example: 0.9095886945724487
+                    Confidence:
+                      type: number
+                      example: 100
+                    Emotions:
+                      type: array
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 100
+                        Type:
+                          type: string
+                          enum:
+                          - HAPPY
+                          - SAD
+                          - ANGRY
+                          - CONFUSED
+                          - DISGUSTED
+                          - SURPRISED
+                          - CALM
+                          - UNKNOWN
+                          - FEAR
+                    Eyeglasses:
+                      type: object
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 56.16883087158203
+                        Value:
+                          type: boolean
+                          example: true
+                    EyesOpen:
+                      type: object
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 56.16883087158203
+                        Value:
+                          type: boolean
+                          example: true
+                    Gender:
+                      type: object
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 56.16883087158203
+                        Value:
+                          type: string
+                          enum:
+                          - Male
+                          - Female
+                    Landmarks:
+                      type: array
+                      properties:
+                        Type:
+                          type: string
+                          enum:
+                          - eyeLeft
+                          - eyeRight
+                          - nose
+                          - mouthLeft
+                          - mouthRight
+                          - leftEyeBrowLeft
+                          - leftEyeBrowRight
+                          - leftEyeBrowUp
+                          - rightEyeBrowLeft
+                          - rightEyeBrowRight
+                          - rightEyeBrowUp
+                          - leftEyeLeft
+                          - leftEyeRight
+                          - leftEyeUp
+                          - leftEyeDown
+                          - rightEyeLeft
+                          - rightEyeRight
+                          - rightEyeUp
+                          - rightEyeDown
+                          - noseLeft
+                          - noseRight
+                          - mouthUp
+                          - mouthDown
+                          - leftPupil
+                          - rightPupil
+                          - upperJawlineLeft
+                          - midJawlineLeft
+                          - chinBottom
+                          - midJawlineRight
+                          - upperJawlineRight
+                        X:
+                          type: number
+                          example: 0.5
+                        Y:
+                          type: number
+                          example: 0.5
+                    MouthOpen:
+                      type: object
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 56.16883087158203
+                        Value:
+                          type: boolean
+                          example: true
+                    Mustache:
+                      type: object
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 56.16883087158203
+                        Value:
+                          type: boolean
+                          example: true
+                    Pose:
+                      type: object
+                      properties:
+                        Pitch:
+                          type: number
+                          example: 90
+                        Roll:
+                          type: number
+                          example: -90
+                        Yaw:
+                          type: number
+                          example: 180
+                    Quality:
+                      type: object
+                      properties:
+                        Brightness:
+                          type: number
+                          example: 90
+                        Sharpness:
+                          type: number
+                          example: 30
+                    Smile:
+                      type: object
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 56.16883087158203
+                        Value:
+                          type: boolean
+                          example: true
+                    Sunglasses:
+                      type: object
+                      properties:
+                        Confidence:
+                          type: number
+                          example: 56.16883087158203
+                        Value:
+                          type: boolean
+                          example: true
+        # "Error" (error) output
+        throws:
+          name: Error
+          description: An unexpected error was encountered.
+          context: $.detectfaceserror
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+      detectModerationLabels: # This same key is used in `actions.js`
+        name: Detect Moderation Labels
+        description: Detects unsafe objects in an image (JPG or PNG).
+        parameters:
+          Image:
+            name: Image
+            description: Base64 encoded image.
+            required: true
+            initialType: string
+            schema:
+              type: string
+        # "Next" (next) output
+        returns:
+          name: Next
+          description: The operation was successful.
+          context: $.detectmoderationlabelsoutput
+          schema:
+            type: object
+            properties:
+              ModerationModelVersion:
+                type: string
+                example: 3.0
+              ModerationLabels:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Confidence:
+                      type: number
+                      example: 57.1234
+                    Name:
+                      type: string
+                      enum:
+                      - Explicit Nudity
+                      - Nudity
+                      - Graphic Male Nudity
+                      - Graphic Female Nudity
+                      - Sexual Activity
+                      - Illustrated Explicit Nudity
+                      - Adult Toys
+                      - Suggestive
+                      - Female Swimwear Or Underwear
+                      - Male Swimwear Or Underwear
+                      - Partial Nudity
+                      - Barechested Male
+                      - Revealing Clothes
+                      - Sexual Situations
+                      - Violence
+                      - Graphic Violence Or Gore
+                      - Physical Violence
+                      - Weapon Violence
+                      - Weapons
+                      - Self Injury
+                      - Visually Disturbing
+                      - Emaciated Bodies
+                      - Corpses
+                      - Hanging
+                      - Air Crash
+                      - Explosions And Blasts
+                      - Rude Gestures
+                      - Middle Finger
+                      - Drugs
+                      - Drug Products
+                      - Drug Use
+                      - Pills
+                      - Drug Paraphernalia
+                      - Tobacco
+                      - Tobacco Products
+                      - Smoking
+                      - Alcohol
+                      - Drinking
+                      - Alcoholic Beverages
+                      - Gambling
+                      - Hate Symbols
+                      - Nazi Party
+                      - White Supremacy
+                      - Extremist
+                    ParentName:
+                      type: string
+                      enum:
+                      - Explicit Nudity
+                      - Suggestive
+                      - Violence
+                      - Visually Disturbing
+                      - Rude Gestures
+                      - Drugs
+                      - Tobacco
+                      - Alcohol
+                      - Gambling
+                      - Hate Symbols
+                      - ""
+        # "Error" (error) output
+        throws:
+          name: Error
+          description: An unexpected error was encountered.
+          context: $.detectmoderationlabelserror
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+      detectProtectiveEquipment: # This same key is used in `actions.js`
+        name: Detect Personal Protective Equipment
+        description: Detects Personal Protective Equipment (PPE) worn by people detected in an image (JPG or PNG).
+        parameters:
+          Image:
+            name: Image
+            description: Base64 encoded image.
+            required: true
+            initialType: string
+            schema:
+              type: string
+        # "Next" (next) output
+        returns:
+          name: Next
+          description: The operation was successful.
+          context: $.detectppeoutput
+          schema:
+            type: object
+            properties:
+              ProtectiveEquipmentModelVersion:
+                type: string
+                example: 3.0
+              Summary:
+                type: object
+                properties:
+                  PersonsIndeterminate:
+                    type: array
+                    items:
+                      type: number
+                      example: 0
+                  PersonsWithoutRequiredEquipment:
+                    type: array
+                    items:
+                      type: number
+                      example: 1
+                  PersonsWithRequiredEquipment:
+                    type: array
+                    items:
+                      type: number
+                      example: 2
+              Persons:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    BodyParts:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          Confidence:
+                            type: number
+                            example: 99.83000183105469
+                          Name:
+                            type: string
+                            enum:
+                            - FACE
+                            - HEAD
+                            - LEFT_HAND
+                            -
+
+                              RIGHT_HAND
+                          EquipmentDetections:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                Type:
+                                  type: string
+                                  enum:
+                                  - FACE_COVER
+                                  - HAND_COVER
+                                  - HEAD_COVER
+                                Confidence:
+                                  type: number
+                                  example: 99.83000183105469
+                                BoundingBox:
+                                  type: object
+                                  properties:
+                                    Height:
+                                      type: number
+                                      example: 0.4260041415691376
+                                    Left:
+                                      type: number
+                                      example: 0.044332683086395264
+                                    Top:
+                                      type: number
+                                      example: 0.37117668986320496
+                                    Width:
+                                      type: number
+                                      example: 0.9095886945724487
+                                CoversBodyPart:
+                                  type: object
+                                  properties:
+                                    Confidence:
+                                      type: number
+                                      example: 99.83000183105469
+                                    Value:
+                                      type: boolean
+                                      example: true
+                    BoundingBox:
+                      type: object
+                      properties:
+                        Height:
+                          type: number
+                          example: 0.4260041415691376
+                        Left:
+                          type: number
+                          example: 0.044332683086395264
+                        Top:
+                          type: number
+                          example: 0.37117668986320496
+                        Width:
+                          type: number
+                          example: 0.9095886945724487
+                    Confidence:
+                      type: number
+                      example: 99.83000183105469
+                    Id:
+                      type: number
+                      example: 0
+        # "Error" (error) output
+        throws:
+          name: Error
+          description: An unexpected error was encountered.
+          context: $.detectppeerror
           schema:
             type: object
             properties:

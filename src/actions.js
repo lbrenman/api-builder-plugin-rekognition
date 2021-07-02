@@ -7,6 +7,12 @@ const detectLabelsAsync = util.promisify(rekognition.detectLabels)
     .bind(rekognition);
 const detectTextAsync = util.promisify(rekognition.detectText)
     .bind(rekognition);
+const detectFacesAsync = util.promisify(rekognition.detectFaces)
+    .bind(rekognition);
+const detectModerationLabelsAsync = util.promisify(rekognition.detectModerationLabels)
+    .bind(rekognition);
+const detectProtectiveEquipmentAsync = util.promisify(rekognition.detectProtectiveEquipment)
+    .bind(rekognition);
 
 /**
  * Action method.
@@ -72,7 +78,81 @@ const detectTextAsync = util.promisify(rekognition.detectText)
      return detectTextAsync(myparams);
  }
 
+ async function detectFaces(params, options) {
+     const { Image } = params;
+     const { logger } = options;
+     if (!Image) {
+         throw new Error('Missing required parameter: Image');
+     }
+
+     console.log('detectFaces() called');
+
+     // https://stackoverflow.com/questions/43599556/aws-rekognition-js-sdk-invalid-image-encoding-error
+     // https://stackoverflow.com/questions/52165333/deprecationwarning-buffer-is-deprecated-due-to-security-and-usability-issues
+     const buffer = Buffer.from(Image, 'base64');
+
+     const myparams = {
+       Attributes: ['ALL'],
+       Image: {
+         Bytes: buffer
+       }
+     }
+
+     return detectFacesAsync(myparams);
+ }
+
+ async function detectModerationLabels(params, options) {
+     const { Image } = params;
+     const { logger } = options;
+     if (!Image) {
+         throw new Error('Missing required parameter: Image');
+     }
+
+     console.log('detectModerationLabels() called');
+
+     // https://stackoverflow.com/questions/43599556/aws-rekognition-js-sdk-invalid-image-encoding-error
+     // https://stackoverflow.com/questions/52165333/deprecationwarning-buffer-is-deprecated-due-to-security-and-usability-issues
+     const buffer = Buffer.from(Image, 'base64');
+
+     const myparams = {
+       Image: {
+         Bytes: buffer
+       }
+     }
+
+     return detectModerationLabelsAsync(myparams);
+ }
+
+ async function detectProtectiveEquipment(params, options) {
+     const { Image } = params;
+     const { logger } = options;
+     if (!Image) {
+         throw new Error('Missing required parameter: Image');
+     }
+
+     console.log('detectProtectiveEquipment() called');
+
+     // https://stackoverflow.com/questions/43599556/aws-rekognition-js-sdk-invalid-image-encoding-error
+     // https://stackoverflow.com/questions/52165333/deprecationwarning-buffer-is-deprecated-due-to-security-and-usability-issues
+     const buffer = Buffer.from(Image, 'base64');
+
+     const myparams = {
+       Image: {
+         Bytes: buffer
+       },
+       SummarizationAttributes: {
+         MinConfidence: 75,
+         RequiredEquipmentTypes: ['FACE_COVER', 'HAND_COVER', 'HEAD_COVER']
+       }
+     }
+
+     return detectProtectiveEquipmentAsync(myparams);
+ }
+
 module.exports = {
-	detectLabels,
+	detectFaces,
+  detectLabels,
+  detectModerationLabels,
+  detectProtectiveEquipment,
   detectText
 };

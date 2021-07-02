@@ -36,7 +36,7 @@ Find the plugin in the AI group in the Flow-Nodes panel. Drag onto the canvas an
 
 ![](https://i.imgur.com/5hl3tGg.png)
 
-Images need to be provided as Base64 encoded strings. You can find many Base64 encoders online such as this [**one**](https://codebeautify.org/image-to-base64-converter).
+Images (JPEG or PNG) need to be provided as Base64 encoded strings. You can find many Base64 encoders online such as this [**one**](https://codebeautify.org/image-to-base64-converter).
 
 ## Methods
 
@@ -230,5 +230,346 @@ Image = Base64 encoded version of the following image:
         }
     ],
     "TextModelVersion": "3.0"
+}
+```
+
+### Detect Faces
+
+AWS docs are [**here**](https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectFaces.html)
+
+Provide the *Image* input as a Base64 encoded string and the output will be similar to below:
+
+Image = Base64 encoded version of the following image:
+
+![](https://i.imgur.com/Eseki3z.jpg)
+
+```
+{
+    "FaceDetails": [
+        {
+            "BoundingBox": {
+                "Width": 0.37403011322021484,
+                "Height": 0.3589228093624115,
+                "Left": 0.3247712552547455,
+                "Top": 0.07539718598127365
+            },
+            "AgeRange": {
+                "Low": 23,
+                "High": 35
+            },
+            "Smile": {
+                "Value": false,
+                "Confidence": 98.7928695678711
+            },
+            "Eyeglasses": {
+                "Value": true,
+                "Confidence": 99.85688018798828
+            },
+            .
+            .
+            .
+            "MouthOpen": {
+                "Value": false,
+                "Confidence": 95.0227279663086
+            },
+            "Emotions": [
+                {
+                    "Type": "CALM",
+                    "Confidence": 98.27169036865234
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.4600139260292053
+                },
+                .
+                .
+                .
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 0.08039141446352005
+                }
+            ],
+            "Landmarks": [
+                {
+                    "Type": "eyeLeft",
+                    "X": 0.4211536645889282,
+                    "Y": 0.22201673686504364
+                },
+                {
+                    "Type": "eyeRight",
+                    "X": 0.5880940556526184,
+                    "Y": 0.22860434651374817
+                },
+                .
+                .
+                .
+                {
+                    "Type": "upperJawlineRight",
+                    "X": 0.6837441325187683,
+                    "Y": 0.2481657713651657
+                }
+            ],
+            "Pose": {
+                "Roll": 2.1925508975982666,
+                "Yaw": 0.3401939868927002,
+                "Pitch": 11.061576843261719
+            },
+            "Quality": {
+                "Brightness": 77.83470916748047,
+                "Sharpness": 94.08262634277344
+            },
+            "Confidence": 99.99972534179688
+        }
+    ]
+}
+```
+
+### Detect Moderation Labels
+
+AWS docs are [**here**](https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectModerationLabels.html)
+
+Provide the *Image* input as a Base64 encoded string and the output will be similar to below:
+
+Image = Base64 encoded version of the following image:
+
+![](https://i.imgur.com/D7maIMa.jpg)
+
+```
+{
+    "ModerationLabels": [
+        {
+            "Confidence": 95.99689483642578,
+            "Name": "Alcoholic Beverages",
+            "ParentName": "Alcohol"
+        },
+        {
+            "Confidence": 95.99689483642578,
+            "Name": "Alcohol",
+            "ParentName": ""
+        }
+    ],
+    "ModerationModelVersion": "4.0"
+}
+```
+
+### Detect Personal Protective Equipment (PPE)
+
+AWS docs are [**here**](https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectProtectiveEquipment.html)
+
+Provide the *Image* input as a Base64 encoded string and the output will be similar to below:
+
+Image = Base64 encoded version of the following image:
+
+![](https://i.imgur.com/2XU5Y3f.jpg)
+
+```
+{
+    "ProtectiveEquipmentModelVersion": "1.0",
+    "Persons": [
+        {
+            "BodyParts": [
+                {
+                    "Name": "FACE",
+                    "Confidence": 99.33659362792969,
+                    "EquipmentDetections": [
+                        {
+                            "BoundingBox": {
+                                "Width": 0.09513942152261734,
+                                "Height": 0.10421869158744812,
+                                "Left": 0.4654864966869354,
+                                "Top": 0.32142555713653564
+                            },
+                            "Confidence": 99.97029876708984,
+                            "Type": "FACE_COVER",
+                            "CoversBodyPart": {
+                                "Confidence": 89.59506225585938,
+                                "Value": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "LEFT_HAND",
+                    "Confidence": 97.67623901367188,
+                    "EquipmentDetections": []
+                },
+                {
+                    "Name": "RIGHT_HAND",
+                    "Confidence": 56.84904479980469,
+                    "EquipmentDetections": [
+                        {
+                            "BoundingBox": {
+                                "Width": 0.09019285440444946,
+                                "Height": 0.10900517553091049,
+                                "Left": 0.22584359347820282,
+                                "Top": 0.4841454327106476
+                            },
+                            "Confidence": 65.1576919555664,
+                            "Type": "HAND_COVER",
+                            "CoversBodyPart": {
+                                "Confidence": 99.8289566040039,
+                                "Value": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "HEAD",
+                    "Confidence": 99.99517822265625,
+                    "EquipmentDetections": []
+                }
+            ],
+            "BoundingBox": {
+                "Width": 0.4809523820877075,
+                "Height": 0.8015267252922058,
+                "Left": 0.2380952388048172,
+                "Top": 0.18320611119270325
+            },
+            "Confidence": 99.83000183105469,
+            "Id": 0
+        },
+        {
+            "BodyParts": [
+                {
+                    "Name": "FACE",
+                    "Confidence": 99.58224487304688,
+                    "EquipmentDetections": [
+                        {
+                            "BoundingBox": {
+                                "Width": 0.08927446603775024,
+                                "Height": 0.10428228974342346,
+                                "Left": 0.12037970125675201,
+                                "Top": 0.33622512221336365
+                            },
+                            "Confidence": 99.7800521850586,
+                            "Type": "FACE_COVER",
+                            "CoversBodyPart": {
+                                "Confidence": 99.94519805908203,
+                                "Value": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "LEFT_HAND",
+                    "Confidence": 99.28810119628906,
+                    "EquipmentDetections": []
+                },
+                {
+                    "Name": "RIGHT_HAND",
+                    "Confidence": 99.97966766357422,
+                    "EquipmentDetections": []
+                },
+                {
+                    "Name": "HEAD",
+                    "Confidence": 99.98377227783203,
+                    "EquipmentDetections": []
+                }
+            ],
+            "BoundingBox": {
+                "Width": 0.420634925365448,
+                "Height": 0.7811704874038696,
+                "Left": 0.007936508394777775,
+                "Top": 0.20610687136650085
+            },
+            "Confidence": 99.92481231689453,
+            "Id": 1
+        },
+        {
+            "BodyParts": [
+                {
+                    "Name": "FACE",
+                    "Confidence": 99.1600112915039,
+                    "EquipmentDetections": [
+                        {
+                            "BoundingBox": {
+                                "Width": 0.09494524449110031,
+                                "Height": 0.1097668930888176,
+                                "Left": 0.7650715112686157,
+                                "Top": 0.31457528471946716
+                            },
+                            "Confidence": 99.89432525634766,
+                            "Type": "FACE_COVER",
+                            "CoversBodyPart": {
+                                "Confidence": 98.65139770507812,
+                                "Value": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "LEFT_HAND",
+                    "Confidence": 99.19236755371094,
+                    "EquipmentDetections": []
+                },
+                {
+                    "Name": "RIGHT_HAND",
+                    "Confidence": 99.6152114868164,
+                    "EquipmentDetections": []
+                },
+                {
+                    "Name": "HEAD",
+                    "Confidence": 99.98148345947266,
+                    "EquipmentDetections": []
+                }
+            ],
+            "BoundingBox": {
+                "Width": 0.29523810744285583,
+                "Height": 0.7913485765457153,
+                "Left": 0.7047619223594666,
+                "Top": 0.18066157400608063
+            },
+            "Confidence": 99.99444580078125,
+            "Id": 2
+        },
+        {
+            "BodyParts": [
+                {
+                    "Name": "FACE",
+                    "Confidence": 63.59202194213867,
+                    "EquipmentDetections": []
+                },
+                {
+                    "Name": "HEAD",
+                    "Confidence": 96.91404724121094,
+                    "EquipmentDetections": [
+                        {
+                            "BoundingBox": {
+                                "Width": 0.03824697062373161,
+                                "Height": 0.041919633746147156,
+                                "Left": 0.6655418276786804,
+                                "Top": 0.40767616033554077
+                            },
+                            "Confidence": 60.57323455810547,
+                            "Type": "HEAD_COVER",
+                            "CoversBodyPart": {
+                                "Confidence": 99.9076156616211,
+                                "Value": true
+                            }
+                        }
+                    ]
+                }
+            ],
+            "BoundingBox": {
+                "Width": 0.06825397163629532,
+                "Height": 0.5038167834281921,
+                "Left": 0.6555555462837219,
+                "Top": 0.40458014607429504
+            },
+            "Confidence": 98.65675354003906,
+            "Id": 3
+        }
+    ],
+    "Summary": {
+        "PersonsWithRequiredEquipment": [],
+        "PersonsWithoutRequiredEquipment": [
+            0,
+            1,
+            2
+        ],
+        "PersonsIndeterminate": [
+            3
+        ]
+    }
 }
 ```
