@@ -1,6 +1,6 @@
 {
 	"name": "api-builder-plugin-rekognition",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "A plugin for Axway API Builder",
 	"author": "",
 	"license": "ISC",
